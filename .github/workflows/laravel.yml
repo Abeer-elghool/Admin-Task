@@ -10,7 +10,6 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
 
     services:
@@ -28,7 +27,7 @@ jobs:
           --health-retries=3
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4  # Update to the latest version
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -55,5 +54,8 @@ jobs:
     - name: Install NPM dependencies
       run: npm install
 
-    - name: Run tests
-      run: php artisan test
+    - name: Run TaskController tests
+      run: php artisan test --filter=TaskControllerTest
+
+    - name: Run StatisticsController tests
+      run: php artisan test --filter=StatisticsControllerTest
