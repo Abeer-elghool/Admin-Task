@@ -52,8 +52,9 @@ jobs:
           sleep 1
         done
 
-    - name: Create database
-      run: mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE test_db;"
+    - name: Create database if it doesn't exist
+      run: |
+        mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS test_db;"
 
     - name: Run migrations
       run: php artisan migrate
