@@ -22,5 +22,9 @@ class AdminSeeder extends Seeder
             'password'  => '123456789',
             'email'     => 'admin@gmail.com'
         ]);
+
+        Admin::factory()
+            ->count(100)
+            ->create();
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable();
             $table->string('title');
             $table->text('description');
             $table->foreignId('assigned_by_id')->nullable()->references('id')->on('admins')->onDelete('cascade');

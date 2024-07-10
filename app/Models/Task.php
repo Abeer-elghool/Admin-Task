@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\TaskObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +17,17 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    public function admin()
+    protected static function booted()
+    {
+        static::observe(TaskObserver::class);
+    }
+
+    public function assignedBy()
     {
         return $this->belongsTo(Admin::class, 'assigned_by_id');
     }
 
-    public function user()
+    public function assignedTo()
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
     }

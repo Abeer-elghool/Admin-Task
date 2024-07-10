@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Statistic\StatisticController;
+use App\Http\Controllers\Web\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('tasks', TaskController::class);
+    Route::get('statistics', [StatisticController::class, 'index'])->name('statistics.index');
 });
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         User::factory()
-            ->count(10)
+            ->count(10000)
             ->create();
     }
 }
