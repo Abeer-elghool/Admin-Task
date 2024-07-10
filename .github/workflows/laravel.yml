@@ -27,7 +27,7 @@ jobs:
           --health-retries=3
 
     steps:
-    - uses: actions/checkout@v4  # Update to the latest version
+    - uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -45,8 +45,15 @@ jobs:
     - name: Generate application key
       run: php artisan key:generate
 
+    - name: Wait for MySQL to be ready
+      run: |
+        until mysqladmin ping -h"127.0.0.1" --silent; do
+          echo 'waiting for mysql to be connectable...'
+          sleep 1
+        done
+
     - name: Create database
-      run: mysql -u root -proot -e "CREATE DATABASE test_db;"
+      run: mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE test_db;"
 
     - name: Run migrations
       run: php artisan migrate
